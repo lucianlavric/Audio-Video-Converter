@@ -10,7 +10,7 @@ video = YouTube(str(input("Enter the URL of the video you want to download: \n")
 audio = video.streams.filter(only_audio = True).first()
 
 
-print("Enter the destination (leave blank for current directorty)")
+print("Enter the destination (leave blank for current directory)")
 destination = str(input(">>")) or '.'
 
 out_file = audio.download(output_path=destination)

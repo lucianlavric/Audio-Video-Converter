@@ -1,5 +1,6 @@
 from flask import Flask, redirect, url_for, request, render_template, session
 from pytube import YouTube
+import urllib.request
 import os
 
 import requests
@@ -15,9 +16,11 @@ def index_post():
    yt = request.form['text']
    yt = YouTube(yt)
    video = yt.streams.filter(only_audio = True).first()
+   thumbnail = yt.thumbnail_url
+#    urllib.request.urlretrieve(thumbnail, "download.jpg")
    destination = '.'
    out_file = video.download(output_path = destination)
    base, ext = os.path.splitext(out_file)
    new_file = base + '.mp3'
    os.rename(out_file, new_file)
-   return render_template('results.html')
+   return render_template('results.html', thumbnail_url = thumbnail)
